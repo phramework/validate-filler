@@ -65,15 +65,19 @@ class Filler
                 }
 
                 if ($validator->exclusiveMaximum) {
-                    $maximum -=1;
+                    $maximum -= 1;
                 }
 
                 //todo multiple of
-                
-                return $faker->numberBetween( //not exclusive
+
+                $number = $faker->numberBetween( //not exclusive
                     $minimum,
                     $maximum
                 );
+
+                $number = ((int) ($number/$validator->multipleOf)) * $validator->multipleOf;
+
+                return $number;
 
                 break;
             case NumberValidator::class:

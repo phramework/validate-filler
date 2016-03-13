@@ -37,14 +37,18 @@ class FillerTest extends \PHPUnit_Framework_TestCase
 
         $validator = new IntegerValidator(
             $minimum,
-            $maximum
+            $maximum,
+            true,
+            false,
+            2
         );
 
         $result = (new Filler())->fill($validator);
 
+        print_r([$result]);
+
         $this->assertGreaterThanOrEqual($minimum, $result);
         $this->assertLessThanOrEqual(   $maximum, $result);
-
-        print_r([$result]);
+        //$this->assertEquals(0, $result % 2);
     }
 }
