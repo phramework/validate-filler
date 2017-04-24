@@ -27,6 +27,7 @@ use Phramework\Validate\UnsignedIntegerValidator;
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @since 0.0.0
+ * @api
  */
 class Filler
 {
@@ -45,43 +46,13 @@ class Filler
         switch ($type) {
             case IntegerValidator::class:
             case UnsignedIntegerValidator::class:
-
-                $faker = \Faker\Factory::create();
-
-                $minimum = (
-                    $validator->minimum !== null
-                    ? $validator->minimum
-                    : PHP_INT_MIN
+                return (new IntegerValidatorFiller())->fill(
+                    $validator
                 );
-
-                $maximum = (
-                    $validator->maximum !== null
-                    ? $validator->maximum
-                    : PHP_INT_MAX
-                );
-
-                if ($validator->exclusiveMinimum) {
-                    $minimum +=1;
-                }
-
-                if ($validator->exclusiveMaximum) {
-                    $maximum -= 1;
-                }
-
-                //todo multiple of
-
-                $number = $faker->numberBetween( //not exclusive
-                    $minimum,
-                    $maximum
-                );
-
-                $number = ((int) ($number/$validator->multipleOf)) * $validator->multipleOf;
-
-                return $number;
-
-                break;
             case NumberValidator::class:
-                break;
+                return (new NumberValidatorFiller())->fill(
+                    $validator
+                );
             case StringValidator::class:
                 break;
             default:

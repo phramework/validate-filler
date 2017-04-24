@@ -21,32 +21,14 @@ use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\StringValidator;
 
 /**
- * Class FillerTest
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass Filler
+ * @coversDefaultClass Phramework\ValidateFiller\Filler
  */
 class FillerTest extends TestCase
 {
     public function testFillIntegerValidator()
     {
-        $maximum = 1;
-        $minimum = 0;
-
-        $validator = new IntegerValidator(
-            $minimum,
-            $maximum,
-            true,
-            false,
-            2
-        );
-
-        $result = (new Filler())->fill($validator);
-
-        print_r([$result]);
-
-        $this->assertGreaterThanOrEqual($minimum, $result);
-        $this->assertLessThanOrEqual(   $maximum, $result);
-        //$this->assertEquals(0, $result % 2);
+       $this->markTestIncomplete();
     }
 }
