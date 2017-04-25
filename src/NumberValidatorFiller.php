@@ -11,6 +11,7 @@ class NumberValidatorFiller
      * @param NumberValidator $validator
      * @return int
      * @todo implement multipleOf
+     * @todo test enum
      */
     public function fill(BaseValidator $validator)
     {

@@ -42,7 +42,8 @@ class NumberValidatorFillerTest extends TestCase
             $multipleOf
         );
 
-        $result = (new Filler())->fill($validator);
+        $result = (new Filler())
+            ->fill($validator);
 
         if ($exclusiveMinimum) {
             $this->assertGreaterThanOrEqual($minimum, $result);
