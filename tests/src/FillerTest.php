@@ -27,8 +27,12 @@ use Phramework\Validate\StringValidator;
  */
 class FillerTest extends TestCase
 {
-    public function testFillIntegerValidator()
+    public function testFillUnknown()
     {
-       $this->markTestIncomplete();
+        $value = (new Filler())->fill(
+            new StringValidator()
+        );
+
+        $this->assertNull($value);
     }
 }

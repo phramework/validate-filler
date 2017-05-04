@@ -20,7 +20,14 @@ class NumberValidatorFillerTest extends TestCase
                 true,
                 false,
                 0.5
-            ]
+            ],
+            [
+                0,
+                4,
+                false,
+                true,
+                0.5
+            ],
         ];
     }
 
@@ -46,20 +53,20 @@ class NumberValidatorFillerTest extends TestCase
             ->fill($validator);
 
         if ($exclusiveMinimum) {
-            $this->assertGreaterThanOrEqual($minimum, $result);
-        } else {
             $this->assertGreaterThan($minimum, $result);
+        } else {
+            $this->assertGreaterThanOrEqual($minimum, $result);
         }
 
         if ($exclusiveMaximum) {
-            $this->assertLessThanOrEqual($maximum, $result);
-        } else {
             $this->assertLessThan($maximum, $result);
+        } else {
+            $this->assertLessThanOrEqual($maximum, $result);
         }
 
         $this->assertEquals(
             $result / $multipleOf,
-            (float)((int) ($result / $multipleOf))
+            (float) ((int) ($result / $multipleOf))
         );
     }
 }

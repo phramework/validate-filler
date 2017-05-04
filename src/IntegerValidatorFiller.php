@@ -5,6 +5,10 @@ namespace Phramework\ValidateFiller;
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\IntegerValidator;
 
+/**
+ * @since  {VERSION}
+ * @author Xenofon Spafaridis <nohponex@gmail.com>
+ */
 class IntegerValidatorFiller
 {
     /**

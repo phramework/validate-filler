@@ -23,6 +23,13 @@ class IntegerValidatorFillerTest extends TestCase
                 2
             ],
             [
+                0,
+                4,
+                false,
+                true,
+                2
+            ],
+            [
                 -100,
                 100,
                 false,
@@ -54,15 +61,16 @@ class IntegerValidatorFillerTest extends TestCase
             ->fill($validator);
 
         if ($exclusiveMinimum) {
-            $this->assertGreaterThanOrEqual($minimum, $result);
-        } else {
             $this->assertGreaterThan($minimum, $result);
+        } else {
+            $this->assertGreaterThanOrEqual($minimum, $result);
         }
 
         if ($exclusiveMaximum) {
-            $this->assertLessThanOrEqual($maximum, $result);
-        } else {
             $this->assertLessThan($maximum, $result);
+        } else {
+
+            $this->assertLessThanOrEqual($maximum, $result);
         }
 
         $this->assertEquals(
