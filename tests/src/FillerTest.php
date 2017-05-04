@@ -29,9 +29,10 @@ class FillerTest extends TestCase
 {
     public function testFillUnknown()
     {
-        $value = (new Filler())->fill(
-            new StringValidator()
-        );
+        $value = (new Filler())
+            ->fill(
+                new StringValidator()
+            );
 
         $this->assertNull($value);
     }

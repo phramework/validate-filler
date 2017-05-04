@@ -16,6 +16,13 @@ class NumberValidatorFillerTest extends TestCase
         return [
             [
                 0,
+                1,
+                true,
+                true,
+                0.5
+            ],
+            [
+                0,
                 100,
                 true,
                 false,

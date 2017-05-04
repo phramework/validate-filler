@@ -31,7 +31,10 @@ class IntegerValidatorFiller
             $maximum -= 1;
         }
 
-        $number = $faker->numberBetween( //not exclusive
+        /*
+         * generate an non exclusive number
+         */
+        $number = $faker->numberBetween(
             $minimum,
             $maximum
         );
