@@ -9,7 +9,7 @@ use Phramework\Validate\IntegerValidator;
  * @since  {VERSION}
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class IntegerValidatorFiller
+class IntegerValidatorFiller implements IValidatorFiller
 {
     /**
      * @param IntegerValidator $validator

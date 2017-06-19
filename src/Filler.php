@@ -17,6 +17,7 @@
 namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\BaseValidator;
+use Phramework\Validate\EnumValidator;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\NumberValidator;
 use Phramework\Validate\StringValidator;
@@ -42,7 +43,17 @@ class Filler
     {
         $type = get_class($validator);
 
+        $enum = $validator->enum;
+
+        if (!empty($enum)) {
+            return EnumValidatorFiller::returnRandomItem($validator->enum);
+        }
+
         switch ($type) {
+            case EnumValidator::class:
+                return (new EnumValidatorFiller())->fill(
+                    $validator
+                );
             case IntegerValidator::class:
             case UnsignedIntegerValidator::class:
                 return (new IntegerValidatorFiller())->fill(

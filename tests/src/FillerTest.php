@@ -18,6 +18,7 @@ namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
 use Phramework\Validate\IntegerValidator;
+use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
 
 /**
@@ -35,5 +36,34 @@ class FillerTest extends TestCase
             );
 
         $this->assertNull($value);
+    }
+
+    public function testAnyValidatorWithEnumDefined()
+    {
+        $enum = [
+            (object) [
+                'a' => 'aabaa'
+            ],
+            (object) [
+                'a' => 'ababa'
+            ]
+        ];
+
+        $value = (new Filler())
+            ->fill(
+                (new ObjectValidator(
+                    (object) [
+                        'a' => new StringValidator(1, 5),
+                    ],
+                    ['a'],
+                    false
+                ))
+                    ->setEnum($enum)
+            );
+
+        $this->assertContains(
+            $value,
+            $enum
+        );
     }
 }

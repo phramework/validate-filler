@@ -9,7 +9,7 @@ use Phramework\Validate\NumberValidator;
  * @since  {VERSION}
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class NumberValidatorFiller
+class NumberValidatorFiller implements IValidatorFiller
 {
     /**
      * @param NumberValidator $validator
@@ -37,10 +37,12 @@ class NumberValidatorFiller
             $maximum
         );
 
+        $div = (int) $number / $validator->multipleOf;
+
         /*
          * Ensure multipleOf
          */
-        $number = ((int) $number / $validator->multipleOf) * $validator->multipleOf;
+        $number = ($div ? : 1) * $validator->multipleOf;
 
         return $number;
     }

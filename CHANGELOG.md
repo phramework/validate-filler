@@ -2,3 +2,4 @@
 ### Added
 - IntegerValidatorFiller
 - NumberValidatorFiller
+- EnumValidatorFiller
