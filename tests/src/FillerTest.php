@@ -16,6 +16,7 @@
  */
 namespace Phramework\ValidateFiller;
 
+use PHPUnit\Framework\TestCase;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\StringValidator;
 
@@ -25,11 +26,8 @@ use Phramework\Validate\StringValidator;
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @coversDefaultClass Filler
  */
-class FillerTest extends \PHPUnit_Framework_TestCase
+class FillerTest extends TestCase
 {
-    /**
-     * @covers ::fill
-     */
     public function testFillIntegerValidator()
     {
         $maximum = 1;
