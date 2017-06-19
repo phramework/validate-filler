@@ -16,6 +16,7 @@
  */
 namespace Phramework\ValidateFiller;
 
+use Phramework\Validate\ArrayValidator;
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\EnumValidator;
 use Phramework\Validate\IntegerValidator;
@@ -29,7 +30,7 @@ use Phramework\Validate\UnsignedIntegerValidator;
  * @since 0.0.0
  * @api
  */
-class Filler
+class Filler implements IFillerRepository
 {
     public function __construct()
     {
@@ -50,6 +51,11 @@ class Filler
         }
 
         switch ($type) {
+            //todo use DI
+            case ArrayValidator::class:
+                return (new ArrayValidatorFiller($this))->fill(
+                    $validator
+                );
             case EnumValidator::class:
                 return (new EnumValidatorFiller())->fill(
                     $validator
