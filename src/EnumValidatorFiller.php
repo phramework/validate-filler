@@ -5,6 +5,7 @@ namespace Phramework\ValidateFiller;
 use Phramework\Validate\BaseValidator;
 
 /**
+ * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @since  {VERSION}
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
