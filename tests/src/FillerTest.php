@@ -18,35 +18,52 @@ namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
 use Phramework\Validate\IntegerValidator;
+use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
 
 /**
- * Class FillerTest
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass Filler
+ * @coversDefaultClass Phramework\ValidateFiller\Filler
  */
 class FillerTest extends TestCase
 {
-    public function testFillIntegerValidator()
+    public function testFillUnknown()
     {
-        $maximum = 1;
-        $minimum = 0;
+        $value = (new Filler())
+            ->fill(
+                new StringValidator()
+            );
 
-        $validator = new IntegerValidator(
-            $minimum,
-            $maximum,
-            true,
-            false,
-            2
+        $this->assertNull($value);
+    }
+
+    public function testAnyValidatorWithEnumDefined()
+    {
+        $enum = [
+            (object) [
+                'a' => 'aabaa'
+            ],
+            (object) [
+                'a' => 'ababa'
+            ]
+        ];
+
+        $value = (new Filler())
+            ->fill(
+                (new ObjectValidator(
+                    (object) [
+                        'a' => new StringValidator(1, 5),
+                    ],
+                    ['a'],
+                    false
+                ))
+                    ->setEnum($enum)
+            );
+
+        $this->assertContains(
+            $value,
+            $enum
         );
-
-        $result = (new Filler())->fill($validator);
-
-        print_r([$result]);
-
-        $this->assertGreaterThanOrEqual($minimum, $result);
-        $this->assertLessThanOrEqual(   $maximum, $result);
-        //$this->assertEquals(0, $result % 2);
     }
 }
