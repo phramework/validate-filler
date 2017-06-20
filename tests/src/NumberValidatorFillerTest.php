@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Phramework\Validate\NumberValidator;
 
 /**
- * @since  {VERSION}
+ * @since  0.1.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
 class NumberValidatorFillerTest extends TestCase
