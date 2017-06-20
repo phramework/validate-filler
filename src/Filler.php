@@ -21,6 +21,7 @@ use Phramework\Validate\BaseValidator;
 use Phramework\Validate\EnumValidator;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\NumberValidator;
+use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
 use Phramework\Validate\UnsignedIntegerValidator;
 
@@ -54,6 +55,10 @@ class Filler implements IFillerRepository
             //todo use DI
             case ArrayValidator::class:
                 return (new ArrayValidatorFiller($this))->fill(
+                    $validator
+                );
+            case ObjectValidator::class:
+                return (new ObjectValidatorFiller($this))->fill(
                     $validator
                 );
             case EnumValidator::class:
