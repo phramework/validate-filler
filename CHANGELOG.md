@@ -1,3 +1,7 @@
+## 0.3.0
+### Added
+- Implement ObjectValidatorFiller
+
 ## 0.2.0
 ### Added
 - ArrayValidatorFiller
