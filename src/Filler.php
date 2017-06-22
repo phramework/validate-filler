@@ -24,17 +24,27 @@ use Phramework\Validate\NumberValidator;
 use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
 use Phramework\Validate\UnsignedIntegerValidator;
+use Phramework\ValidateFiller\Injection\ValueInjection;
+use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @since 0.0.0
+ * @version 0.4.0 Support ValueInjection
+ * @version 0.4.0 Experimental class implementation mapping
  * @api
  */
 class Filler implements IFillerRepository
 {
+    /**
+     * @var ValueInjectionCollection
+     */
+    protected $valueInjectionCollection;
+
     public function __construct()
     {
+        $this->valueInjectionCollection = new ValueInjectionCollection();
     }
 
     /**
@@ -47,6 +57,9 @@ class Filler implements IFillerRepository
 
         $enum = $validator->enum;
 
+        /*
+         * If any of the validators has enum attribute set
+         */
         if (!empty($enum)) {
             return EnumValidatorFiller::returnRandomItem($validator->enum);
         }
@@ -58,9 +71,11 @@ class Filler implements IFillerRepository
                     $validator
                 );
             case ObjectValidator::class:
-                return (new ObjectValidatorFiller($this))->fill(
-                    $validator
-                );
+                return (new ObjectValidatorFiller($this))
+                    ->setValueInjectionCollection($this->valueInjectionCollection)
+                    ->fill(
+                        $validator
+                    );
             /*case EnumValidator::class:
                 return (new EnumValidatorFiller())->fill(
                     $validator
@@ -81,5 +96,16 @@ class Filler implements IFillerRepository
         }
 
         return null;
+    }
+
+    /**
+     * @return $this
+     */
+    public function appendValueInjection(
+        ValueInjection $valueInjection
+    ) {
+        $this->valueInjectionCollection->append($valueInjection);
+
+        return $this;
     }
 }

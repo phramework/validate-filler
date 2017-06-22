@@ -14,28 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Phramework\ValidateFiller;
-
-use Phramework\Validate\BaseValidator;
+namespace Phramework\ValidateFiller\Injection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.1.0
+ * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class EnumValidatorFiller implements IValidatorFiller
+interface ValueInjection
 {
-    public function fill(BaseValidator $validator)
-    {
-        return static::returnRandomItem($validator->enum);
-    }
-
     /**
-     * @param array $enum
+     * Get injection value
      * @return mixed
      */
-    public static function returnRandomItem(array $enum)
-    {
-        return $enum[array_rand($enum)];
-    }
+    public function getValue();
+
+    /**
+     * Get injection property key
+     * @return string
+     */
+    public function getProperty() : string;
 }
