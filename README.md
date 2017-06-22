@@ -1,6 +1,11 @@
 # phramework/validate-filler
 > 
 
+
+[![Build Status](https://travis-ci.org/phramework/validate-filler.svg?branch=master)](https://travis-ci.org/phramework/validate-filler)
+
+[![Coverage Status](https://coveralls.io/repos/github/phramework/validate-filler/badge.svg?branch=master)](https://coveralls.io/github/phramework/validate-filler?branch=master)
+
 ## Usage
 Require package using composer
 
@@ -28,7 +33,7 @@ composer doc
 ```
 
 ## License
-Copyright 2015 - 2016 Xenofon Spafaridis
+Copyright 2015-2017 Xenofon Spafaridis
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
