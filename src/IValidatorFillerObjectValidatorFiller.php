@@ -16,26 +16,25 @@
  */
 namespace Phramework\ValidateFiller;
 
-use Phramework\Validate\BaseValidator;
-use Phramework\ValidateFiller\Injection\ValueInjection;
+use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.2.0
+ * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-interface IFillerRepository
+interface IValidatorFillerObjectValidatorFiller extends IValidatorFillerWithFillerRepository, IValidatorFiller
 {
     /**
-     * @param BaseValidator $validator
-     * @return mixed
-     */
-    public function fill(BaseValidator $validator);
-
-    /**
+     * @param ValueInjectionCollection $collection
      * @return $this
      */
-    public function appendValueInjection(
-        ValueInjection $valueInjection
-    ) : IFillerRepository;
+    public function withValueInjectionCollection(
+        ValueInjectionCollection $collection = null
+    ) : IValidatorFillerObjectValidatorFiller;
+
+    /**
+     * @return ValueInjectionCollection|null
+     */
+    public function getValueInjectionCollection();
 }

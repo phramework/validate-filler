@@ -18,7 +18,7 @@ class BooleanValidatorFillerTest extends TestCase
     {
         $validator = new BooleanValidator();
 
-        $value = (new Filler())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         $this->assertInternalType('boolean', $value);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2015-2017 Xenofon Spafaridis
+ * Copyright 2015 - 2016 Xenofon Spafaridis
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,17 @@
  */
 namespace Phramework\ValidateFiller;
 
-use Phramework\Validate\BaseValidator;
-use Phramework\ValidateFiller\Injection\ValueInjection;
-
 /**
+ * A factory to create a default FillerRepository
+ * @since 1.0.0
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
+ * @coversDefaultClass Phramework\ValidateFiller\Filler
  */
-interface IFillerRepository
+class DefaultFillerRepositoryFactory
 {
-    /**
-     * @param BaseValidator $validator
-     * @return mixed
-     */
-    public function fill(BaseValidator $validator);
-
-    /**
-     * @return $this
-     */
-    public function appendValueInjection(
-        ValueInjection $valueInjection
-    ) : IFillerRepository;
+    public static function create() : IFillerRepository
+    {
+        return new FillerRepository();
+    }
 }

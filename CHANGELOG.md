@@ -1,3 +1,14 @@
+## 1.0.0
+### Added
+- Have dependency injections have setters for the default implementation
+- AbstractEnumValidatorFiller
+- DefaultFillerRepositoryFactory
+- IValidatorFillerWithFillerRepository interface
+### Changed
+- Refactor ObjectValidatorFiller
+- Refactor ArrayValidatorFiller
+- setValueInjectionCollection to withIFillerRepository (immutable)
+
 ## 0.6.0
 ### Added
 - Implement StringValidatorFiller

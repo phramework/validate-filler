@@ -23,7 +23,7 @@ class StringValidatorFillerTest extends TestCase
         /**
          * @var string
          */
-        $returnedString = (new Filler())
+        $returnedString = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         $this->assertInternalType('string', $returnedString);
