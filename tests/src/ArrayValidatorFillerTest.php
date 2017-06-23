@@ -66,4 +66,19 @@ class ArrayValidatorFillerTest extends TestCase
             'Since we requested unique, and same number of item, we expect them to be same'
         );
     }
+
+    /**
+     * @expectedException \DomainException
+     */
+    public function testExpectExceptionWhenItemsNotSet()
+    {
+        $validator = new ArrayValidator(
+            1,
+            3,
+            null
+        );
+
+        (new Filler())
+            ->fill($validator);
+    }
 }

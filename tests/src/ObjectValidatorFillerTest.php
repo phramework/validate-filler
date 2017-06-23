@@ -14,7 +14,7 @@ use Phramework\Validate\ObjectValidator;
  */
 class ObjectValidatorFillerTest extends TestCase
 {
-    public function testFill()
+    public function testRequiredValueShouldAlwaysBeReturned()
     {
         $validator = new ObjectValidator(
             (object) [
@@ -42,5 +42,43 @@ class ObjectValidatorFillerTest extends TestCase
         if (property_exists($value, 'b')) {
             $this->assertSame($value->b, 'bb');
         }
+    }
+
+    /**
+     * @todo can be improved, to reflect the requirement
+     * @dataProvider provider
+     */
+    public function testNonRequiredValueSometimesIsReturned()
+    {
+        $validator = new ObjectValidator(
+            (object) [
+                'a' => new EnumValidator(['aa']),
+                'b' => new EnumValidator(['bb'])
+            ],
+            ['a'],
+            false
+        );
+
+        $value = (new Filler())
+            ->fill($validator);
+
+        $this->assertInternalType('object', $value);
+
+        $this->assertObjectHasAttribute('a', $value);
+
+        $this->assertLessThanOrEqual(
+            2,
+            count(array_keys((array) $value)),
+            'Since only "a" property is required it will always be there, and b might appear some times'
+        );
+
+        if (property_exists($value, 'b')) {
+            $this->assertSame($value->b, 'bb');
+        }
+    }
+
+    public function provider() : array
+    {
+        return array_fill(0, 6, [null]);
     }
 }

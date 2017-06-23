@@ -61,10 +61,10 @@ class Filler implements IFillerRepository
                 return (new ObjectValidatorFiller($this))->fill(
                     $validator
                 );
-            case EnumValidator::class:
+            /*case EnumValidator::class:
                 return (new EnumValidatorFiller())->fill(
                     $validator
-                );
+                );*/
             case IntegerValidator::class:
             case UnsignedIntegerValidator::class:
                 return (new IntegerValidatorFiller())->fill(
