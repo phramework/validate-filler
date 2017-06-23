@@ -54,7 +54,7 @@ class stdClass#1381 (1) {
 ```php
 class stdClass#1381 (2) {
   public $a =>
-  string(1) "2"
+  string(1) "3"
   public $b =>
   string(2) "ii"
 }
