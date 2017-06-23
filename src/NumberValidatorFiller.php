@@ -7,7 +7,7 @@ use Phramework\Validate\NumberValidator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  {VERSION}
+ * @since  0.1.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
 class NumberValidatorFiller implements IValidatorFiller

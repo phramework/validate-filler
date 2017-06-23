@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Phramework\Validate\NumberValidator;
 
 /**
- * @since  0.1.0
+ * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
 class NumberValidatorFillerTest extends TestCase

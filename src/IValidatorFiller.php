@@ -6,7 +6,7 @@ use Phramework\Validate\BaseValidator;
 use Phramework\Validate\IntegerValidator;
 
 /**
- * @since  {VERSION}
+ * @since  0.1.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
 interface IValidatorFiller
