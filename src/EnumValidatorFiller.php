@@ -17,6 +17,7 @@
 namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\BaseValidator;
+use Phramework\Validate\EnumValidator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -25,6 +26,10 @@ use Phramework\Validate\BaseValidator;
  */
 class EnumValidatorFiller implements IValidatorFiller
 {
+    /**
+     * @param EnumValidator $validator
+     * @return mixed
+     */
     public function fill(BaseValidator $validator)
     {
         return static::returnRandomItem($validator->enum);

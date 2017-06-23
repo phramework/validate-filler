@@ -30,7 +30,7 @@ class FillerTest extends TestCase
 {
     public function testFillUnknown()
     {
-        $value = (new Filler())
+        $value = (new FillerRepository())
             ->fill(
                 new StringValidator()
             );
@@ -49,7 +49,7 @@ class FillerTest extends TestCase
             ]
         ];
 
-        $value = (new Filler())
+        $value = (new FillerRepository())
             ->fill(
                 (new ObjectValidator(
                     (object) [

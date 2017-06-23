@@ -24,16 +24,26 @@ use Phramework\Validate\BaseValidator;
  * @since  0.2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class ArrayValidatorFiller implements IValidatorFiller
+class ArrayValidatorFiller implements IArrayValidatorFiller
 {
     /**
      * @var IFillerRepository
      */
     protected $fillerRepository;
 
-    public function __construct(IFillerRepository $fillerRepository)
-    {
-        $this->fillerRepository = $fillerRepository;
+    /**
+     * @param IFillerRepository $repository
+     * @return IWithFillerRepository
+     * @return $this
+     */
+    public function withIFillerRepository(
+        IFillerRepository $repository
+    ) : IWithFillerRepository {
+        $copy = clone $this;
+
+        $copy->fillerRepository = $repository;
+
+        return $copy;
     }
 
     /**
@@ -60,15 +70,19 @@ class ArrayValidatorFiller implements IValidatorFiller
 
         for ($i = 0; $i<$numberOfItems; ++$i) {
             //todo deal with infinite loop
-            $item = $this->fillerRepository->fill(
-                $validator->items
-            );
+            $item = $this
+                ->fillerRepository
+                ->fill(
+                    $validator->items
+                );
 
             //todo refactor
             while ($validator->uniqueItems && in_array($item, $items, true)) {
-                $item = $this->fillerRepository->fill(
-                    $validator->items
-                );
+                $item = $this
+                    ->fillerRepository
+                    ->fill(
+                        $validator->items
+                    );
             }
 
             $items[] = $item;

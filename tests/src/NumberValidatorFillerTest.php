@@ -56,7 +56,7 @@ class NumberValidatorFillerTest extends TestCase
             $multipleOf
         );
 
-        $result = (new Filler())
+        $result = (new FillerRepository())
             ->fill($validator);
 
         if ($exclusiveMinimum) {

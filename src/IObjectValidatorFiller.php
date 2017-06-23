@@ -23,15 +23,15 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-interface IObjectValidatorFiller extends IValidatorFiller
+interface IObjectValidatorFiller extends IWithFillerRepository, IFillerRepository
 {
     /**
      * @param ValueInjectionCollection $collection
      * @return $this
      */
-    public function setValueInjectionCollection(
+    public function withValueInjectionCollection(
         ValueInjectionCollection $collection = null
-    ) : IObjectValidatorFiller ;
+    ) : IObjectValidatorFiller;
 
     /**
      * @return ValueInjectionCollection|null

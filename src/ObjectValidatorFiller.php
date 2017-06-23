@@ -18,11 +18,12 @@ namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\ObjectValidator;
+use Phramework\ValidateFiller\Injection\ValueInjection;
 use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.3.0
+ * @since 0.3.0
  * @version 0.4.0 Implement IObjectValidatorFiller
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
@@ -33,24 +34,40 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
      */
     protected $fillerRepository;
 
+    /**
+     * @var ValueInjectionCollection
+     */
     protected $valueInjectionCollection;
 
-    public function __construct(IFillerRepository $fillerRepository)
-    {
-        $this->fillerRepository = $fillerRepository;
+    /**
+     * @inheritdoc
+     */
+    public function withValueInjectionCollection(
+        ValueInjectionCollection $collection = null
+    ) : IObjectValidatorFiller {
+        $copy = clone $this;
+
+        $copy->valueInjectionCollection = $collection;
+
+        return $copy;
     }
 
     /**
      * @inheritdoc
      */
-    public function setValueInjectionCollection(
-        ValueInjectionCollection $collection = null
-    ) : IObjectValidatorFiller {
-        $this->valueInjectionCollection = $collection;
+    public function withIFillerRepository(
+        IFillerRepository $repository
+    ) : IWithFillerRepository {
+        $copy = clone $this;
 
-        return $this;
+        $copy->fillerRepository = $repository;
+
+        return $copy;
     }
 
+    /**
+     * @return ValueInjectionCollection
+     */
     public function getValueInjectionCollection()
     {
         return $this->valueInjectionCollection;
@@ -68,8 +85,8 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
         if ($this->getValueInjectionCollection() !== null) {
             $properties = $validator->properties;
 
-            foreach ($this->getValueInjectionCollection() as $i) {
-                /* @var Injection $i */
+            foreach ($this->valueInjectionCollection as $i) {
+                /* @var ValueInjection $i */
 
                 if (property_exists($properties, $i->getProperty())) {
                     $value->{$i->getProperty()} = $i->getValue();
@@ -95,9 +112,11 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
          * Fill all required properties
          */
         foreach ($required as $r) {
-            $object->{$r} = $this->fillerRepository->fill(
-                $validator->properties->{$r}
-            );
+            $object->{$r} = $this
+                ->fillerRepository
+                ->fill(
+                    $validator->properties->{$r}
+                );
         }
 
         $notRequired = array_diff(
@@ -109,10 +128,12 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
          * 50% possibility to fill not required properties
          */
         foreach ($notRequired as $r) {
-            if (random_int(0, 1)) {
-                $object->{$r} = $this->fillerRepository->fill(
-                    $validator->properties->{$r}
-                );
+            if (random_int(0, 1) === 1) {
+                $object->{$r} = $this
+                    ->fillerRepository
+                    ->fill(
+                        $validator->properties->{$r}
+                    );
             }
         }
 

@@ -19,7 +19,7 @@ class InjectionObjectFillerTest extends TestCase
             'b' => 'b'
         ];
 
-        $filler = (new Filler());
+        $filler = (new FillerRepository());
 
         $validator = new ObjectValidator(
             (object) [
@@ -60,7 +60,7 @@ class InjectionObjectFillerTest extends TestCase
             false
         );
 
-        $filler = (new Filler())
+        $filler = (new FillerRepository())
             ->appendValueInjection(
                 new ObjectPropertyValueInjection('not-exists', 'some value')
             );
