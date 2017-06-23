@@ -27,7 +27,7 @@ class ArrayValidatorFillerTest extends TestCase
             false
         );
 
-        $value = (new FillerRepository())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         $c = array_diff($value, $enum);
@@ -52,7 +52,7 @@ class ArrayValidatorFillerTest extends TestCase
             true
         );
 
-        $value = (new FillerRepository())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         /*
@@ -78,7 +78,7 @@ class ArrayValidatorFillerTest extends TestCase
             null
         );
 
-        (new FillerRepository())
+        DefaultFillerRepositoryFactory::create()
             ->fill($validator);
     }
 }

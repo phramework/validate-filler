@@ -10,6 +10,10 @@ use Phramework\ValidateFiller\Injection\ValueInjection;
 use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 use Phramework\ValidateFiller\Injection\ObjectPropertyValueInjection;
 
+/**
+ * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
+ * @author Xenofon Spafaridis <nohponex@gmail.com>
+ */
 class InjectionObjectFillerTest extends TestCase
 {
     public function testInjectionToOverrideAnExistingPropertyValue()
@@ -19,7 +23,7 @@ class InjectionObjectFillerTest extends TestCase
             'b' => 'b'
         ];
 
-        $filler = (new FillerRepository());
+        $filler = DefaultFillerRepositoryFactory::create();
 
         $validator = new ObjectValidator(
             (object) [
@@ -60,7 +64,7 @@ class InjectionObjectFillerTest extends TestCase
             false
         );
 
-        $filler = (new FillerRepository())
+        $filler = DefaultFillerRepositoryFactory::create()
             ->appendValueInjection(
                 new ObjectPropertyValueInjection('not-exists', 'some value')
             );

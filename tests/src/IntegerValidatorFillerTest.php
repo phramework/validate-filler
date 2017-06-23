@@ -57,7 +57,7 @@ class IntegerValidatorFillerTest extends TestCase
             $multipleOf
         );
 
-        $result = (new FillerRepository())
+        $result = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         if ($exclusiveMinimum) {

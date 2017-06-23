@@ -16,8 +16,6 @@ class ObjectValidatorFillerTest extends TestCase
 {
     public function testRequiredValueShouldAlwaysBeReturned()
     {
-        global $container;
-
         $validator = new ObjectValidator(
             (object) [
                 'a' => new EnumValidator(['aa']),
@@ -27,7 +25,7 @@ class ObjectValidatorFillerTest extends TestCase
             false
         );
 
-        $value = $container
+        $value = DefaultFillerRepositoryFactory::create()
             ->get(FillerRepository::class)
             ->fill($validator);
 
@@ -62,11 +60,7 @@ class ObjectValidatorFillerTest extends TestCase
             false
         );
 
-        $value = (new FillerRepository(
-            new ObjectValidatorFiller(),
-            new ArrayValidatorFiller(),
-            new EnumValidatorFiller()
-        ))
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         $this->assertInternalType('object', $value);

@@ -26,11 +26,11 @@ use Phramework\Validate\StringValidator;
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @coversDefaultClass Phramework\ValidateFiller\Filler
  */
-class FillerTest extends TestCase
+class FillerRepositoryTest extends TestCase
 {
-    public function testFillUnknown()
+    public function testFillUnknownValidator()
     {
-        $value = (new FillerRepository())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill(
                 new StringValidator()
             );
@@ -49,7 +49,7 @@ class FillerTest extends TestCase
             ]
         ];
 
-        $value = (new FillerRepository())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill(
                 (new ObjectValidator(
                     (object) [
