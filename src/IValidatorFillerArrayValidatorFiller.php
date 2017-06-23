@@ -10,6 +10,6 @@ use Phramework\Validate\BaseValidator;
  * @since   0.2.0
  * @author  Xenofon Spafaridis <nohponex@gmail.com>
  */
-interface IArrayValidatorFiller extends IWithFillerRepository, IFillerRepository
+interface IValidatorFillerArrayValidatorFiller extends IValidatorFillerWithFillerRepository, IFillerRepository
 {
 }

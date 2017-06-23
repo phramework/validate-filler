@@ -26,7 +26,6 @@ class ObjectValidatorFillerTest extends TestCase
         );
 
         $value = DefaultFillerRepositoryFactory::create()
-            ->get(FillerRepository::class)
             ->fill($validator);
 
         $this->assertInternalType('object', $value);

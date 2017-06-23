@@ -24,7 +24,7 @@ use Phramework\Validate\BaseValidator;
  * @since  0.2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class ArrayValidatorFiller implements IArrayValidatorFiller
+class ArrayValidatorFiller implements IValidatorFillerArrayValidatorFiller
 {
     /**
      * @var IFillerRepository
@@ -33,12 +33,12 @@ class ArrayValidatorFiller implements IArrayValidatorFiller
 
     /**
      * @param IFillerRepository $repository
-     * @return IWithFillerRepository
+     * @return IValidatorFillerWithFillerRepository
      * @return $this
      */
     public function withIFillerRepository(
         IFillerRepository $repository
-    ) : IWithFillerRepository {
+    ) : IValidatorFillerWithFillerRepository {
         $copy = clone $this;
 
         $copy->fillerRepository = $repository;

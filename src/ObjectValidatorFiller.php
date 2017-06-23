@@ -27,7 +27,7 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @version 0.4.0 Implement IObjectValidatorFiller
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class ObjectValidatorFiller implements IObjectValidatorFiller
+class ObjectValidatorFiller implements IValidatorFillerObjectValidatorFiller
 {
     /**
      * @var IFillerRepository
@@ -44,7 +44,7 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
      */
     public function withValueInjectionCollection(
         ValueInjectionCollection $collection = null
-    ) : IObjectValidatorFiller {
+    ) : IValidatorFillerObjectValidatorFiller {
         $copy = clone $this;
 
         $copy->valueInjectionCollection = $collection;
@@ -57,7 +57,7 @@ class ObjectValidatorFiller implements IObjectValidatorFiller
      */
     public function withIFillerRepository(
         IFillerRepository $repository
-    ) : IWithFillerRepository {
+    ) : IValidatorFillerWithFillerRepository {
         $copy = clone $this;
 
         $copy->fillerRepository = $repository;

@@ -43,11 +43,11 @@ class FillerRepository implements IFillerRepository
     protected $valueInjectionCollection;
 
     /**
-     * @var IObjectValidatorFiller
+     * @var IValidatorFillerObjectValidatorFiller
      */
     protected $iObjectValidatorFiller;
     /**
-     * @var IArrayValidatorFiller
+     * @var IValidatorFillerArrayValidatorFiller
      */
     protected $iArrayValidatorFiller;
 
@@ -57,13 +57,13 @@ class FillerRepository implements IFillerRepository
     protected $enumValidatorFiller;
 
     /**
-     * @param IObjectValidatorFiller $iObjectValidatorFiller
-     * @param IArrayValidatorFiller  $iArrayValidatorFiller
-     * @param EnumValidatorFiller    $enumValidatorFiller
+     * @param IValidatorFillerObjectValidatorFiller $iObjectValidatorFiller
+     * @param IValidatorFillerArrayValidatorFiller  $iArrayValidatorFiller
+     * @param EnumValidatorFiller                   $enumValidatorFiller
      */
     public function __construct(
-        IObjectValidatorFiller $iObjectValidatorFiller,
-        IArrayValidatorFiller $iArrayValidatorFiller,
+        IValidatorFillerObjectValidatorFiller $iObjectValidatorFiller,
+        IValidatorFillerArrayValidatorFiller $iArrayValidatorFiller,
         EnumValidatorFiller $enumValidatorFiller
     ) {
         $this->iObjectValidatorFiller = $iObjectValidatorFiller;
