@@ -15,6 +15,7 @@ composer require phramework/validate-filler
 ```php
 <?php
 $validator = \Phramework\Validate\ObjectValidator::createFromJSON('{
+  "type": "object",
   "properties": {
     "a": {
       "type": "string",
