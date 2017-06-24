@@ -24,7 +24,7 @@ use Phramework\Validate\EnumValidator;
  * @since  0.1.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class EnumValidatorFiller implements IValidatorFiller
+class EnumValidatorFiller extends AbstractEnumValidatorFiller
 {
     /**
      * @param EnumValidator $validator
@@ -33,14 +33,5 @@ class EnumValidatorFiller implements IValidatorFiller
     public function fill(BaseValidator $validator)
     {
         return static::returnRandomItem($validator->enum);
-    }
-
-    /**
-     * @param array $enum
-     * @return mixed
-     */
-    public static function returnRandomItem(array $enum)
-    {
-        return $enum[array_rand($enum)];
     }
 }

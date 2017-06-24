@@ -30,7 +30,9 @@ class DefaultFillerRepositoryFactory
         return new FillerRepository(
             new ObjectValidatorFiller(),
             new ArrayValidatorFiller(),
-            new EnumValidatorFiller()
+            new EnumValidatorFiller(),
+            new IntegerValidatorFiller(),
+            new NumberValidatorFiller()
         );
     }
 }
