@@ -14,6 +14,46 @@ use Phramework\Validate\ObjectValidator;
  */
 class ObjectValidatorFillerTest extends TestCase
 {
+    /**
+     * @todo make example more complex to ensure correct, immutable values passed around
+     */
+    public function testObjectValidatorWithObjectPropertyShouldWork()
+    {
+        $validator = new ObjectValidator(
+            (object) [
+                'a' => new ObjectValidator(
+                    (object) [
+                        'b' => new ObjectValidator(
+                            (object) [
+                                'c' => new ArrayValidator(
+                                    1,
+                                    1,
+                                    new EnumValidator(['1'])
+                                )
+                            ],
+                            ['c'],
+                            false
+                        )
+                    ],
+                    ['b'],
+                    false
+                )
+            ],
+            ['a'],
+            false
+        );
+
+        $value = DefaultFillerRepositoryFactory::create()
+            ->fill($validator);
+
+        $this->assertInternalType('object', $value);
+        $this->assertInternalType('object', $value->a);
+        $this->assertInternalType('object', $value->a->b);
+        $this->assertInternalType('array', $value->a->b->c);
+
+        $this->assertEquals('1', $value->a->b->c[0]);
+    }
+
     public function testRequiredValueShouldAlwaysBeReturned()
     {
         $validator = new ObjectValidator(

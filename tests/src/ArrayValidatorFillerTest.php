@@ -81,4 +81,26 @@ class ArrayValidatorFillerTest extends TestCase
         DefaultFillerRepositoryFactory::create()
             ->fill($validator);
     }
+
+    public function testArrayValidatorWithArrayItemsShouldWork()
+    {
+        $validator = new ArrayValidator(
+            1,
+            1,
+            new ArrayValidator(
+                1,
+                1,
+                new EnumValidator(['1']),
+                false
+            ),
+            false
+        );
+
+        $value = DefaultFillerRepositoryFactory::create()
+            ->fill($validator);
+
+        $this->assertInternalType('array', $value);
+        $this->assertInternalType('array', $value[0]);
+        $this->assertEquals('1', $value[0][0]);
+    }
 }
