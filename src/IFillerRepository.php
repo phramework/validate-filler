@@ -17,6 +17,7 @@
 namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\BaseValidator;
+use Phramework\ValidateFiller\Injection\ValueInjection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -30,4 +31,11 @@ interface IFillerRepository
      * @return mixed
      */
     public function fill(BaseValidator $validator);
+
+    /**
+     * @return $this
+     */
+    public function appendValueInjection(
+        ValueInjection $valueInjection
+    ) : IFillerRepository;
 }
