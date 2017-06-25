@@ -23,7 +23,7 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-interface IValidatorFillerObjectValidatorFiller extends IValidatorFillerWithFillerRepository, IFillerRepository
+interface IValidatorFillerObjectValidatorFiller extends IValidatorFillerWithFillerRepository, IValidatorFiller
 {
     /**
      * @param ValueInjectionCollection $collection

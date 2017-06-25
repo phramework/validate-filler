@@ -144,7 +144,7 @@ class FillerRepository implements IFillerRepository
      */
     public function appendValueInjection(
         ValueInjection $valueInjection
-    ) {
+    ) : IFillerRepository {
         $this->valueInjectionCollection->append($valueInjection);
 
         return $this;
