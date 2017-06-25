@@ -1,3 +1,7 @@
+## 0.4.0
+### Added
+- Support property value injection
+
 ## 0.3.0
 ### Added
 - Implement ObjectValidatorFiller

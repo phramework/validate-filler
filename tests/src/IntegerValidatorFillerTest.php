@@ -69,7 +69,6 @@ class IntegerValidatorFillerTest extends TestCase
         if ($exclusiveMaximum) {
             $this->assertLessThan($maximum, $result);
         } else {
-
             $this->assertLessThanOrEqual($maximum, $result);
         }
 

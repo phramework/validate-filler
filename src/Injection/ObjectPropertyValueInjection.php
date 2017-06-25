@@ -14,28 +14,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Phramework\ValidateFiller;
-
-use Phramework\Validate\BaseValidator;
+namespace Phramework\ValidateFiller\Injection;
 
 /**
+ * A ValueInjection implementation for Object validator properties
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.1.0
+ * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class EnumValidatorFiller implements IValidatorFiller
+class ObjectPropertyValueInjection implements ValueInjection
 {
-    public function fill(BaseValidator $validator)
+    /**
+     * @var mixed
+     */
+    protected $value;
+
+    /**
+     * @var string
+     */
+    protected $property;
+
+    /**
+     * @param string $property
+     * @param mixed  $value
+     */
+    public function __construct(string $property, $value = null)
     {
-        return static::returnRandomItem($validator->enum);
+        $this->property = $property;
+        $this->value    = $value;
     }
 
     /**
-     * @param array $enum
-     * @return mixed
+     * @inheritdoc
      */
-    public static function returnRandomItem(array $enum)
+    public function getValue()
     {
-        return $enum[array_rand($enum)];
+        return $this->value;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getProperty() : string
+    {
+        return $this->property;
     }
 }

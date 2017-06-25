@@ -16,26 +16,25 @@
  */
 namespace Phramework\ValidateFiller;
 
-use Phramework\Validate\BaseValidator;
+use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.1.0
+ * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class EnumValidatorFiller implements IValidatorFiller
+interface IObjectValidatorFiller extends IValidatorFiller
 {
-    public function fill(BaseValidator $validator)
-    {
-        return static::returnRandomItem($validator->enum);
-    }
+    /**
+     * @param ValueInjectionCollection $collection
+     * @return $this
+     */
+    public function setValueInjectionCollection(
+        ValueInjectionCollection $collection = null
+    ) : IObjectValidatorFiller ;
 
     /**
-     * @param array $enum
-     * @return mixed
+     * @return ValueInjectionCollection|null
      */
-    public static function returnRandomItem(array $enum)
-    {
-        return $enum[array_rand($enum)];
-    }
+    public function getValueInjectionCollection();
 }

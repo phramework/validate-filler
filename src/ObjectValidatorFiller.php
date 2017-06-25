@@ -18,22 +18,42 @@ namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\ObjectValidator;
+use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @since  0.3.0
+ * @version 0.4.0 Implement IObjectValidatorFiller
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class ObjectValidatorFiller implements IValidatorFiller
+class ObjectValidatorFiller implements IObjectValidatorFiller
 {
     /**
      * @var IFillerRepository
      */
     protected $fillerRepository;
 
+    protected $valueInjectionCollection;
+
     public function __construct(IFillerRepository $fillerRepository)
     {
         $this->fillerRepository = $fillerRepository;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setValueInjectionCollection(
+        ValueInjectionCollection $collection = null
+    ) : IObjectValidatorFiller {
+        $this->valueInjectionCollection = $collection;
+
+        return $this;
+    }
+
+    public function getValueInjectionCollection()
+    {
+        return $this->valueInjectionCollection;
     }
 
     /**
@@ -42,6 +62,30 @@ class ObjectValidatorFiller implements IValidatorFiller
      * @return \stdClass
      */
     public function fill(BaseValidator $validator)
+    {
+        $value = $this->fillRegular($validator);
+
+        if ($this->getValueInjectionCollection() !== null) {
+            $properties = $validator->properties;
+
+            foreach ($this->getValueInjectionCollection() as $i) {
+                /* @var Injection $i */
+
+                if (property_exists($properties, $i->getProperty())) {
+                    $value->{$i->getProperty()} = $i->getValue();
+                }
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param ObjectValidator $validator
+     * @throws \DomainException
+     * @return \stdClass
+     */
+    protected function fillRegular(ObjectValidator $validator)
     {
         $required = $validator->required;
 

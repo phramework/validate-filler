@@ -14,28 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Phramework\ValidateFiller;
-
-use Phramework\Validate\BaseValidator;
+namespace Phramework\ValidateFiller\Injection;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
- * @since  0.1.0
+ * @since  0.4.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  */
-class EnumValidatorFiller implements IValidatorFiller
+class ValueInjectionCollection extends \ArrayObject
 {
-    public function fill(BaseValidator $validator)
-    {
-        return static::returnRandomItem($validator->enum);
-    }
-
     /**
-     * @param array $enum
-     * @return mixed
+     * @param ValueInjection $value
+     * @throws \TypeError
      */
-    public static function returnRandomItem(array $enum)
+    public function append($value)
     {
-        return $enum[array_rand($enum)];
+        if (!($value instanceof ValueInjection)) {
+            throw new \TypeError(sprintf(
+                'Argument 1 passed to %s::%s must be an instance of %s',
+                __CLASS__,
+                __METHOD__,
+                ValueInjection::class
+            ));
+        }
+
+        return parent::append($value);
     }
 }
