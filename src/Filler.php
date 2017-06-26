@@ -18,6 +18,7 @@ namespace Phramework\ValidateFiller;
 
 use Phramework\Validate\ArrayValidator;
 use Phramework\Validate\BaseValidator;
+use Phramework\Validate\BooleanValidator;
 use Phramework\Validate\EnumValidator;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\NumberValidator;
@@ -91,6 +92,10 @@ class Filler implements IFillerRepository
                 );
             case StringValidator::class:
                 break;
+            case BooleanValidator::class:
+                return (new BooleanValidatorFiller())->fill(
+                    $validator
+                );
             default:
                 //error
         }
