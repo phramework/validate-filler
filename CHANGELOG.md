@@ -1,3 +1,7 @@
+## 0.4.1
+### Fixed
+- Fix multipleOf when null at NumberValidatorFiller (#6)
+
 ## 0.4.0
 ### Added
 - Support property value injection

@@ -38,12 +38,16 @@ class NumberValidatorFiller implements IValidatorFiller
             $maximum
         );
 
-        $div = (int) $number / $validator->multipleOf;
+        $multipleOf = $validator->multipleOf;
 
-        /*
-         * Ensure multipleOf
-         */
-        $number = ($div ? : 1) * $validator->multipleOf;
+        if ($multipleOf !== null && $multipleOf != 0) {
+            $div = (int) $number / $validator->multipleOf;
+
+            /*
+             * Ensure is multipleOf
+             */
+            $number = ($div ? : 1) * $validator->multipleOf;
+        }
 
         return $number;
     }
