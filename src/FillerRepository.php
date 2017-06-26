@@ -32,18 +32,58 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @since 0.0.0
  * @version 0.4.0 Support ValueInjection
- * @version 0.4.0 Experimental class implementation mapping
+ * @version 1.0.0 Require all dependencies when constructing
  * @api
  */
-class Filler implements IFillerRepository
+class FillerRepository implements IFillerRepository
 {
     /**
      * @var ValueInjectionCollection
      */
     protected $valueInjectionCollection;
 
-    public function __construct()
-    {
+    /**
+     * @var IValidatorFillerObjectValidatorFiller
+     */
+    protected $iObjectValidatorFiller;
+    /**
+     * @var IValidatorFillerArrayValidatorFiller
+     */
+    protected $iArrayValidatorFiller;
+
+    /**
+     * @var EnumValidatorFiller
+     */
+    protected $enumValidatorFiller;
+
+    /**
+     * @var IntegerValidatorFiller
+     */
+    protected $integerValidatorFiller;
+    /**
+     * @var NumberValidatorFiller
+     */
+    protected $numberValidatorFiller;
+
+
+    /**
+     * @param IValidatorFillerObjectValidatorFiller $iObjectValidatorFiller
+     * @param IValidatorFillerArrayValidatorFiller  $iArrayValidatorFiller
+     * @param AbstractEnumValidatorFiller                   $enumValidatorFiller
+     */
+    public function __construct(
+        IValidatorFillerObjectValidatorFiller $iObjectValidatorFiller,
+        IValidatorFillerArrayValidatorFiller $iArrayValidatorFiller,
+        AbstractEnumValidatorFiller $enumValidatorFiller,
+        IntegerValidatorFiller $integerValidatorFiller,
+        NumberValidatorFiller $numberValidatorFiller
+    ) {
+        $this->iObjectValidatorFiller = $iObjectValidatorFiller;
+        $this->iArrayValidatorFiller  = $iArrayValidatorFiller;
+        $this->enumValidatorFiller    = $enumValidatorFiller;
+        $this->integerValidatorFiller = $integerValidatorFiller;
+        $this->numberValidatorFiller  = $numberValidatorFiller;
+
         $this->valueInjectionCollection = new ValueInjectionCollection();
     }
 
@@ -61,35 +101,36 @@ class Filler implements IFillerRepository
          * If any of the validators has enum attribute set
          */
         if (!empty($enum)) {
-            return EnumValidatorFiller::returnRandomItem($validator->enum);
+            return $this->enumValidatorFiller::returnRandomItem($validator->enum);
         }
 
         switch ($type) {
-            //todo use DI
             case ArrayValidator::class:
-                return (new ArrayValidatorFiller($this))->fill(
-                    $validator
-                );
-            case ObjectValidator::class:
-                return (new ObjectValidatorFiller($this))
-                    ->setValueInjectionCollection($this->valueInjectionCollection)
+                return $this->iArrayValidatorFiller
+                    ->withIFillerRepository($this)
                     ->fill(
                         $validator
                     );
-            /*case EnumValidator::class:
-                return (new EnumValidatorFiller())->fill(
-                    $validator
-                );*/
+            case ObjectValidator::class:
+                return $this->iObjectValidatorFiller
+                    ->withValueInjectionCollection($this->valueInjectionCollection)
+                    ->withIFillerRepository($this)
+                    ->fill(
+                        $validator
+                    );
             case IntegerValidator::class:
             case UnsignedIntegerValidator::class:
-                return (new IntegerValidatorFiller())->fill(
-                    $validator
-                );
+                return $this->integerValidatorFiller
+                    ->fill(
+                        $validator
+                    );
             case NumberValidator::class:
-                return (new NumberValidatorFiller())->fill(
-                    $validator
-                );
+                return $this->numberValidatorFiller
+                    ->fill(
+                        $validator
+                    );
             case StringValidator::class:
+                //todo
                 break;
             default:
                 //error
@@ -103,7 +144,7 @@ class Filler implements IFillerRepository
      */
     public function appendValueInjection(
         ValueInjection $valueInjection
-    ) {
+    ) : IFillerRepository {
         $this->valueInjectionCollection->append($valueInjection);
 
         return $this;

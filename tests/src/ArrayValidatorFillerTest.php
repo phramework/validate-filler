@@ -27,7 +27,7 @@ class ArrayValidatorFillerTest extends TestCase
             false
         );
 
-        $value = (new Filler())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         $c = array_diff($value, $enum);
@@ -52,7 +52,7 @@ class ArrayValidatorFillerTest extends TestCase
             true
         );
 
-        $value = (new Filler())
+        $value = DefaultFillerRepositoryFactory::create()
             ->fill($validator);
 
         /*
@@ -78,7 +78,29 @@ class ArrayValidatorFillerTest extends TestCase
             null
         );
 
-        (new Filler())
+        DefaultFillerRepositoryFactory::create()
             ->fill($validator);
+    }
+
+    public function testArrayValidatorWithArrayItemsShouldWork()
+    {
+        $validator = new ArrayValidator(
+            1,
+            1,
+            new ArrayValidator(
+                1,
+                1,
+                new EnumValidator(['1']),
+                false
+            ),
+            false
+        );
+
+        $value = DefaultFillerRepositoryFactory::create()
+            ->fill($validator);
+
+        $this->assertInternalType('array', $value);
+        $this->assertInternalType('array', $value[0]);
+        $this->assertEquals('1', $value[0][0]);
     }
 }
