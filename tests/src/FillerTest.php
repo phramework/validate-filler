@@ -17,6 +17,7 @@
 namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
+use Phramework\Validate\DateValidator;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
@@ -32,7 +33,7 @@ class FillerTest extends TestCase
     {
         $value = (new Filler())
             ->fill(
-                new StringValidator()
+                new DateValidator()
             );
 
         $this->assertNull($value);

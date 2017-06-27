@@ -92,7 +92,9 @@ class Filler implements IFillerRepository
                     $validator
                 );
             case StringValidator::class:
-                break;
+                return (new StringValidatorFiller())->fill(
+                    $validator
+                );
             case BooleanValidator::class:
                 return (new BooleanValidatorFiller())->fill(
                     $validator
