@@ -34,6 +34,7 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @since 0.0.0
  * @version 0.4.0 Support ValueInjection
  * @version 0.4.0 Experimental class implementation mapping
+ * @version 0.5.0 BooleanValidator
  * @api
  */
 class Filler implements IFillerRepository

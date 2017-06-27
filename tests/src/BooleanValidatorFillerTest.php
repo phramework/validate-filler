@@ -10,7 +10,7 @@ use Phramework\Validate\EnumValidator;
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Vasileios Manolas <vasileiosmanolas@gmail.com>
- * @coversDefaultClass Phramework\ValidateFiller\EnumValidatorFiller
+ * @coversDefaultClass Phramework\ValidateFiller\BooleanValidatorFiller
  */
 class BooleanValidatorFillerTest extends TestCase
 {
