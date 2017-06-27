@@ -1,3 +1,7 @@
+## 0.5.0
+### Added
+- Implement BooleanValidatorFiller
+
 ## 0.4.1
 ### Fixed
 - Fix multipleOf when null at NumberValidatorFiller (#6)
