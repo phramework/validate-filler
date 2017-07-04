@@ -16,10 +16,9 @@
  */
 namespace Phramework\ValidateFiller;
 
+use Phramework\Util\Util;
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\StringValidator;
-use Phramework\Models;
-
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -40,11 +39,7 @@ class StringValidatorFiller implements IValidatorFiller
 
         $length = random_int($minLength, $maxLength);
 
-        // instead of a string of 'a'
-        // $randomString = str_repeat('a', $length);
-
-        // we will use `\Phramework\Models\Util::readableRandomString` to generate a random string
-        $randomString = readableRandomString($length);
+        $randomString = Util::readableRandomString($length);
 
         return $randomString;
     }
