@@ -3,6 +3,7 @@
 namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
+use Phramework\Exceptions\RequestException;
 use Phramework\Validate\ArrayValidator;
 use Phramework\Validate\EnumValidator;
 
