@@ -1,3 +1,7 @@
+## 0.6.0
+### Added
+- Implement StringValidatorFiller
+
 ## 0.5.0
 ### Added
 - Implement BooleanValidatorFiller
