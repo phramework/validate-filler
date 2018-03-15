@@ -22,7 +22,7 @@
   "require": {
     "php": "^7.0.0",
     "ext-json": "*",
-    "phramework/exceptions": "^0.0.0",
+    "phramework/exceptions": "0.*",
     "phramework/validate": "^0.10.0",
     "fzaninotto/faker": "^1.5",
     "phramework/util": "^0.0.0@RC"
