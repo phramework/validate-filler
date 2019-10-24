@@ -1,3 +1,8 @@
+## 1.1.0
+### Added
+- Implement DateValidatorFiller
+- Implement DatetimeValidatorFiller
+
 ## 1.0.0
 ### Added
 - Have dependency injections have setters for the default implementation
