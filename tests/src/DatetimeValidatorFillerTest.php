@@ -5,7 +5,6 @@ namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
 use Phramework\Validate\DatetimeValidator;
-use Phramework\Validate\DateValidator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -18,7 +17,7 @@ class DatetimeValidatorFillerTest extends TestCase
         return [
             [
                 '2010-01-01 12:00',
-                'now',
+                '2020-12-12 19:00',
             ],
             [
                 '2010-12-01 13:00',

@@ -28,11 +28,6 @@ class DateValidatorFiller implements IValidatorFiller
                 ->modify('1 year')
                 ->format('Y-m-d'));
 
-        if ($maximum === 'now') {
-            $maximum = ((new DateTime())
-                ->format('Y-m-d'));
-        }
-
         return $faker->dateTimeBetween(
             $minimum,
             $maximum
