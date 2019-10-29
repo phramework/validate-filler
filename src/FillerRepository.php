@@ -19,6 +19,8 @@ namespace Phramework\ValidateFiller;
 use Phramework\Validate\ArrayValidator;
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\BooleanValidator;
+use Phramework\Validate\DatetimeValidator;
+use Phramework\Validate\DateValidator;
 use Phramework\Validate\EnumValidator;
 use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\NumberValidator;
@@ -36,6 +38,7 @@ use Phramework\ValidateFiller\Injection\ValueInjectionCollection;
  * @version 0.4.0 Experimental class implementation mapping
  * @version 0.5.0 Support BooleanValidator
  * @version 0.6.0 Support StringValidator
+ * @version 1.1.0 Support DateValidator and DatetimeValidator
  * @api
  */
 class FillerRepository implements IFillerRepository
@@ -78,15 +81,27 @@ class FillerRepository implements IFillerRepository
      */
     protected $booleanValidatorFiller;
 
+    /**
+     * @var DateValidatorFiller
+     */
+    protected $dateValidatorFiller;
+
+    /**
+     * @var DatetimeValidatorFiller
+     */
+    protected $datetimeValidatorFiller;
+
 
     public function __construct() {
-        $this->objectValidatorFiller  = new ObjectValidatorFiller();
-        $this->arrayValidatorFiller   = new ArrayValidatorFiller();
-        $this->enumValidatorFiller    = new EnumValidatorFiller();
-        $this->integerValidatorFiller = new IntegerValidatorFiller();
-        $this->numberValidatorFiller  = new NumberValidatorFiller();
-        $this->stringValidatorFiller  = new StringValidatorFiller();
-        $this->booleanValidatorFiller = new BooleanValidatorFiller();
+        $this->objectValidatorFiller   = new ObjectValidatorFiller();
+        $this->arrayValidatorFiller    = new ArrayValidatorFiller();
+        $this->enumValidatorFiller     = new EnumValidatorFiller();
+        $this->integerValidatorFiller  = new IntegerValidatorFiller();
+        $this->numberValidatorFiller   = new NumberValidatorFiller();
+        $this->stringValidatorFiller   = new StringValidatorFiller();
+        $this->booleanValidatorFiller  = new BooleanValidatorFiller();
+        $this->dateValidatorFiller     = new DateValidatorFiller();
+        $this->datetimeValidatorFiller = new DatetimeValidatorFiller();
 
         $this->valueInjectionCollection = new ValueInjectionCollection();
     }
@@ -141,6 +156,16 @@ class FillerRepository implements IFillerRepository
                     );
             case BooleanValidator::class:
                 return $this->booleanValidatorFiller
+                    ->fill(
+                        $validator
+                    );
+            case DateValidator::class:
+                return $this->dateValidatorFiller
+                    ->fill(
+                        $validator
+                    );
+            case DatetimeValidator::class:
+                return $this->datetimeValidatorFiller
                     ->fill(
                         $validator
                     );
@@ -262,6 +287,32 @@ class FillerRepository implements IFillerRepository
         BooleanValidatorFiller $booleanValidatorFiller
     ): IFillerRepository {
         $this->booleanValidatorFiller = $booleanValidatorFiller;
+
+        return $this;
+    }
+
+    /**
+     * @since 1.1.0
+     * @param DateValidatorFiller $dateValidatorFiller
+     * @return $this
+     */
+    public function setDateValidatorFiller(
+        DateValidatorFiller $dateValidatorFiller
+    ): IFillerRepository {
+        $this->dateValidatorFiller = $dateValidatorFiller;
+
+        return $this;
+    }
+
+    /**
+     * @since 1.1.0
+     * @param DatetimeValidatorFiller $datetimeValidatorFiller
+     * @return $this
+     */
+    public function setDatetimeValidatorFiller(
+        DatetimeValidatorFiller $datetimeValidatorFiller
+    ): IFillerRepository {
+        $this->datetimeValidatorFiller = $datetimeValidatorFiller;
 
         return $this;
     }

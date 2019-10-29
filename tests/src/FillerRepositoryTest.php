@@ -17,10 +17,9 @@
 namespace Phramework\ValidateFiller;
 
 use PHPUnit\Framework\TestCase;
-use Phramework\Validate\DateValidator;
-use Phramework\Validate\IntegerValidator;
 use Phramework\Validate\ObjectValidator;
 use Phramework\Validate\StringValidator;
+use Phramework\Validate\UUIDv4Validator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -33,7 +32,7 @@ class FillerRepositoryTest extends TestCase
     {
         $value = DefaultFillerRepositoryFactory::create()
             ->fill(
-                new DateValidator()
+                new UUIDv4Validator()
             );
 
         $this->assertNull($value);
