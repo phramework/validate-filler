@@ -16,7 +16,7 @@ class DateValidatorFillerTest extends TestCase
         return [
             [
                 '2010-01-01',
-                'now',
+                '2030-01-12',
             ],
             [
                 '2010-12-01',

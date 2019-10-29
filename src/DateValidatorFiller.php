@@ -13,11 +13,7 @@ use Phramework\Validate\BaseValidator;
  */
 class DateValidatorFiller implements IValidatorFiller
 {
-    /**
-     * @param BaseValidator $validator
-     * @return string
-     */
-    public function fill(BaseValidator $validator)
+    public function fill(BaseValidator $validator): string
     {
         $faker = Factory::create();
 

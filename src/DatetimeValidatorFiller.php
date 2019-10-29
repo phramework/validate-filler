@@ -13,11 +13,7 @@ use Phramework\Validate\BaseValidator;
  */
 class DatetimeValidatorFiller implements IValidatorFiller
 {
-    /**
-     * @param BaseValidator $validator
-     * @return string
-     */
-    public function fill(BaseValidator $validator)
+    public function fill(BaseValidator $validator): string
     {
         $faker = Factory::create();
 
@@ -32,11 +28,6 @@ class DatetimeValidatorFiller implements IValidatorFiller
                 ->modify('1 year')
                 ->modify(random_int(-100, 100) . ' hours')
                 ->format('Y-m-d H:i:s'));
-
-        if ($maximum === 'now') {
-            $maximum = ((new DateTime())
-                ->format('Y-m-d H:i:s'));
-        }
 
         return $faker->dateTimeBetween(
             $minimum,
