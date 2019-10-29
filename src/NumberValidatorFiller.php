@@ -33,7 +33,7 @@ class NumberValidatorFiller implements IValidatorFiller
         }
 
         $number = $faker->randomFloat(
-            null,
+            8,
             $minimum,
             $maximum
         );
