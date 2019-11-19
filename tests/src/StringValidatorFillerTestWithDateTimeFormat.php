@@ -30,8 +30,23 @@ class StringValidatorFillerTestWithDateTimeFormat extends TestCase
         $this->assertIsString('string', $returnedString);
     }
 
-    public function testReturnedStringSatisfiesFormatMinimumAndMaximum()
+    public function minimumMaximumProvider(): array
     {
+        //input
+        return [
+            ['2020-01-01T23:59:59+02:00', '2020-01-01T23:59:59+02:00'],
+            ['2020-01-01T00:59:59+02:00', '2020-01-01T23:59:59+02:00'],
+            ['2010-01-01T23:59:59+02:00', '2019-01-01T23:23:59+02:00'],
+        ];
+    }
+
+    /**
+     * @dataProvider minimumMaximumProvider
+     */
+    public function testReturnedStringSatisfiesFormatMinimumAndMaximum(
+        $minimum,
+        $maximum
+    ) {
         $validator = new StringValidator(
             0,
             null,
@@ -40,10 +55,10 @@ class StringValidatorFillerTestWithDateTimeFormat extends TestCase
             'date-time'
         );
 
-        $formatMaximum = '2020-01-01T23:59:59+02:00';
+        $formatMaximum = $maximum;
         $validator->setFormatMaximum($formatMaximum);
 
-        $formatMinimum = '2019-12-19T23:59:59+02:00';
+        $formatMinimum = $maximum;
         $validator->setFormatMinimum($formatMinimum);
 
         /**
