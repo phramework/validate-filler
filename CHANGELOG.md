@@ -1,3 +1,7 @@
+## 1.2.0
+### Added
+- Support 'date-time' format in StringValidatorFiller
+
 ## 1.1.0
 ### Added
 - Implement DateValidatorFiller
