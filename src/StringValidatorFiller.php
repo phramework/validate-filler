@@ -16,16 +16,19 @@
  */
 namespace Phramework\ValidateFiller;
 
+use DateTimeZone;
 use Phramework\Util\Util;
 use Phramework\Validate\BaseValidator;
-use Phramework\Validate\Formats\DateTime;
 use Phramework\Validate\StringValidator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @since  0.6.0
  * @author Vasilis Manolas <vasileiosmanolas@gmail.com>
+ * @author Alex Kalliontzis <alkallio@gmail.com>
  * @todo satisfy pattern attribute
+ *
+ * @version 1.2.0 Support for 'date-time' format in type 'string'
  */
 class StringValidatorFiller implements IValidatorFiller
 {
@@ -55,7 +58,10 @@ class StringValidatorFiller implements IValidatorFiller
 
             $randomEpoch = mt_rand($dateMin, $dateMax);
 
-            $randomString = (new \DateTime())
+            $randomString = (new \DateTime(
+                'now',
+                (new DateTimeZone($this->pickRandomTimezone()))
+            ))
                 ->setTimestamp($randomEpoch)
                 ->format(DATE_RFC3339);
         } else {
@@ -68,5 +74,38 @@ class StringValidatorFiller implements IValidatorFiller
         }
 
         return $randomString;
+    }
+
+    private function pickRandomTimezone(): string
+    {
+        $timezones = [
+            'America/Chicago',
+            'America/New_York',
+            'America/Los_Angeles',
+            'America/Phoenix',
+            'America/Anchorage',
+            'Pacific/Honolulu',
+            'Europe/Athens',
+            'Europe/Amsterdam',
+            'Europe/Vienna',
+            'Europe/London',
+            'Europe/Saratov',
+            'Atlantic/Madeira',
+            'US/Mountain',
+            'Australia/Canberra',
+            'Indian/Mauritius',
+            'Asia/Kathmandu',
+            'Asia/Kolkata',
+            'Asia/Ulaanbaatar',
+            'Arctic/Longyearbyen',
+            'Antarctica/McMurdo',
+            'Antarctica/Troll',
+            'Antarctica/Macquarie',
+            'Australia/Eucla',
+        ];
+
+        return $timezones[
+            array_rand($timezones, 1)
+        ];
     }
 }
