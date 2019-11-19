@@ -18,6 +18,7 @@ namespace Phramework\ValidateFiller;
 
 use Phramework\Util\Util;
 use Phramework\Validate\BaseValidator;
+use Phramework\Validate\Formats\DateTime;
 use Phramework\Validate\StringValidator;
 
 /**
@@ -34,12 +35,37 @@ class StringValidatorFiller implements IValidatorFiller
      */
     public function fill(BaseValidator $validator)
     {
-        $minLength = $validator->minLength;
-        $maxLength = $validator->maxLength ?? $validator->minLength + 1;
+        if ($validator->format !== null && $validator->format === 'date-time') {
+            $dateMin = (new \DateTime())
+                ->modify('-1 months')->getTimestamp();
 
-        $length = random_int($minLength, $maxLength);
+            if ($validator->formatMinimum !== null) {
+                $dateMin = (new \DateTime(
+                    $validator->formatMinimum
+                ))->getTimestamp();
+            }
 
-        $randomString = Util::readableRandomString($length);
+            $dateMax = (new \DateTime())
+                ->modify('+1 months')->getTimestamp();
+            if ($validator->formatMaximum !== null) {
+                $dateMax = (new \DateTime(
+                    $validator->formatMaximum
+                ))->getTimestamp();
+            }
+
+            $randomEpoch = mt_rand($dateMin, $dateMax);
+
+            $randomString = (new \DateTime())
+                ->setTimestamp($randomEpoch)
+                ->format(DATE_RFC3339);
+        } else {
+            $minLength = $validator->minLength;
+            $maxLength = $validator->maxLength ?? $validator->minLength + 1;
+
+            $length = random_int($minLength, $maxLength);
+
+            $randomString = Util::readableRandomString($length);
+        }
 
         return $randomString;
     }
