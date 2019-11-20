@@ -25,11 +25,13 @@ class IntegerValidatorFiller implements IValidatorFiller
         $maximum = $validator->maximum ?? PHP_INT_MAX;
 
         if ($validator->exclusiveMinimum) {
-            $minimum +=1;
+            $minimumRemainder = ($validator->minimum % $validator->multipleOf) ?: $validator->multipleOf;
+            $minimum = $validator->minimum + $minimumRemainder;
         }
 
         if ($validator->exclusiveMaximum) {
-            $maximum -= 1;
+            $maximumRemainder = ($validator->maximum % $validator->multipleOf) ?: $validator->multipleOf;
+            $maximum = $validator->maximum - $maximumRemainder;
         }
 
         /*
