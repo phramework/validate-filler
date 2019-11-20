@@ -39,41 +39,41 @@ class StringValidatorFiller implements IValidatorFiller
     public function fill(BaseValidator $validator)
     {
         if ($validator->format !== null && $validator->format === 'date-time') {
-            $dateMin = (new \DateTime())
-                ->modify('-1 months')->getTimestamp();
+            $dateMin = (new \DateTimeImmutable())
+                ->modify('-1 months')
+                ->getTimestamp();
 
             if ($validator->formatMinimum !== null) {
-                $dateMin = (new \DateTime(
+                $dateMin = (new \DateTimeImmutable(
                     $validator->formatMinimum
                 ))->getTimestamp();
             }
 
-            $dateMax = (new \DateTime())
-                ->modify('+1 months')->getTimestamp();
+            $dateMax = (new \DateTimeImmutable())
+                ->modify('+1 months')
+                ->getTimestamp();
             if ($validator->formatMaximum !== null) {
-                $dateMax = (new \DateTime(
+                $dateMax = (new \DateTimeImmutable(
                     $validator->formatMaximum
                 ))->getTimestamp();
             }
 
             $randomEpoch = mt_rand($dateMin, $dateMax);
 
-            $randomString = (new \DateTime(
+            return (new \DateTimeImmutable(
                 'now',
                 (new DateTimeZone($this->pickRandomTimezone()))
             ))
                 ->setTimestamp($randomEpoch)
                 ->format(DATE_RFC3339);
-        } else {
-            $minLength = $validator->minLength;
-            $maxLength = $validator->maxLength ?? $validator->minLength + 1;
-
-            $length = random_int($minLength, $maxLength);
-
-            $randomString = Util::readableRandomString($length);
         }
 
-        return $randomString;
+        $minLength = $validator->minLength;
+        $maxLength = $validator->maxLength ?? $validator->minLength + 1;
+
+        $length = random_int($minLength, $maxLength);
+
+        return Util::readableRandomString($length);
     }
 
     private function pickRandomTimezone(): string
