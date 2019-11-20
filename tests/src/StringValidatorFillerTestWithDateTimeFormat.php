@@ -44,8 +44,8 @@ class StringValidatorFillerTestWithDateTimeFormat extends TestCase
      * @dataProvider minimumMaximumProvider
      */
     public function testReturnedStringSatisfiesFormatMinimumAndMaximum(
-        $minimum,
-        $maximum
+        string $minimum,
+        string $maximum
     ) {
         $validator = new StringValidator(
             0,
@@ -55,11 +55,9 @@ class StringValidatorFillerTestWithDateTimeFormat extends TestCase
             'date-time'
         );
 
-        $formatMaximum = $maximum;
-        $validator->setFormatMaximum($formatMaximum);
+        $validator->setFormatMaximum($maximum);
 
-        $formatMinimum = $maximum;
-        $validator->setFormatMinimum($formatMinimum);
+        $validator->setFormatMinimum($minimum);
 
         /**
          * @var string
@@ -68,15 +66,19 @@ class StringValidatorFillerTestWithDateTimeFormat extends TestCase
             ->fill($validator);
 
         $this->assertGreaterThanOrEqual(
-            (new \DateTime($formatMinimum))->getTimestamp(),
-            (new \DateTime($returnedString))->getTimestamp(),
+            (new \DateTimeImmutable($minimum))
+                ->getTimestamp(),
+            (new \DateTimeImmutable($returnedString))
+                ->getTimestamp(),
             'Returned date should be greater or equal than minimum date'
         );
 
         $this->assertLessThanOrEqual(
-            (new \DateTime($formatMaximum))->getTimestamp(),
-            (new \DateTime($returnedString))->getTimestamp(),
-            'Returned date should be greater or equal than minimum date'
+            (new \DateTimeImmutable($maximum))
+                ->getTimestamp(),
+            (new \DateTimeImmutable($returnedString))
+                ->getTimestamp(),
+            'Returned date should be lower or equal than maximum date'
         );
     }
 }
