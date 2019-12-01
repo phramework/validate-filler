@@ -26,7 +26,7 @@
     }
   },
   "require": {
-    "php": "^7.0.0",
+    "php": "^7.2",
     "ext-json": "*",
     "phramework/exceptions": "0.*",
     "phramework/validate": "^0.11.0",
