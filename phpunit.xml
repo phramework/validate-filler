@@ -9,7 +9,7 @@
     convertWarningsToExceptions="true"
     stopOnFailure="false">
 
-    <testsuite name="PHPUnit phramework/API">
+    <testsuite name="PHPUnit">
         <directory suffix="Test.php">./tests/src/</directory>
         <exclude>../tests/_fixture</exclude>
     </testsuite>

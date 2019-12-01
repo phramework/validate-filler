@@ -17,7 +17,6 @@
 namespace Phramework\ValidateFiller;
 
 use DateTimeZone;
-use Phramework\Util\Util;
 use Phramework\Validate\BaseValidator;
 use Phramework\Validate\StringValidator;
 
@@ -58,7 +57,7 @@ class StringValidatorFiller implements IValidatorFiller
                 ))->getTimestamp();
             }
 
-            $randomEpoch = mt_rand($dateMin, $dateMax);
+            $randomEpoch = random_int($dateMin, $dateMax);
 
             return (new \DateTimeImmutable(
                 'now',
@@ -73,7 +72,7 @@ class StringValidatorFiller implements IValidatorFiller
 
         $length = random_int($minLength, $maxLength);
 
-        return Util::readableRandomString($length);
+        return $this->readableRandomString($length);
     }
 
     private function pickRandomTimezone(): string
@@ -107,5 +106,52 @@ class StringValidatorFiller implements IValidatorFiller
         return $timezones[
             array_rand($timezones, 1)
         ];
+    }
+
+    /**
+     * Create a random readable word
+     * @param  int $length *[Optional]* String's length
+     */
+    private static function readableRandomString(int $length = 8): string
+    {
+        $consonants = [
+            'b',
+            'c',
+            'd',
+            'f',
+            'g',
+            'h',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'p',
+            'r',
+            's',
+            't',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z'
+        ];
+
+        $vowels = ['a', 'e', 'i', 'o', 'u'];
+
+        $word = '';
+        mt_srand((double) microtime() * 1000000);
+        $max = $length / 2;
+
+        for ($i = 1; $i <= $max; ++$i) {
+            $word .= $consonants[random_int(0, count($consonants)-1)];
+            $word .= $vowels[random_int(0, count($vowels)-1)];
+        }
+
+        if (strlen($word) < $length) {
+            $word .= $vowels[random_int(0, count($vowels)-1)];
+        }
+
+        return $word;
     }
 }
